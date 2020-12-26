@@ -2,7 +2,7 @@ Organizations:
   - &OrdererOrg
     Name: Orderer
     ID: OrdererMSP
-    MSPDir: crypto-config/ordererOrganizations/property-registration-network.com/msp
+    MSPDir: crypto-config/ordererOrganizations/pharma-network.com/msp
     Policies:
       Readers:
         Type: Signature
@@ -14,43 +14,95 @@ Organizations:
         Type: Signature
         Rule: "OR('OrdererMSP.member')"
 
-  - &registrar
-    Name: registrarMSP
-    ID: registrarMSP
-    MSPDir: crypto-config/peerOrganizations/registrar.property-registration-network.com/msp
+  - &manufacturer
+    Name: manufacturerMSP
+    ID: manufacturerMSP
+    MSPDir: crypto-config/peerOrganizations/manufacturer.pharma-network.com/msp
     Policies:
       Readers:
         Type: Signature
-        Rule: "OR('registrarMSP.admin', 'registrarMSP.peer', 'registrarMSP.client')"
+        Rule: "OR('manufacturerMSP.admin', 'manufacturerMSP.peer', 'manufacturerMSP.client')"
       Writers:
         Type: Signature
-        Rule: "OR('registrarMSP.admin', 'registrarMSP.peer', 'registrarMSP.client')"
+        Rule: "OR('manufacturerMSP.admin', 'manufacturerMSP.peer', 'manufacturerMSP.client')"
       Admins:
         Type: Signature
-        Rule: "OR('registrarMSP.admin', 'registrarMSP.peer', 'registrarMSP.client')"
+        Rule: "OR('manufacturerMSP.admin', 'manufacturerMSP.peer', 'manufacturerMSP.client')"
     AnchorPeers:
-      - Host: peer0.registrar.property-registration-network.com
+      - Host: peer0.manufacturer.pharma-network.com
         Port: 7051
 
-  - &users
-    Name: usersMSP
-    ID: usersMSP
-    MSPDir: crypto-config/peerOrganizations/users.property-registration-network.com/msp
+  - &distributor
+    Name: distributorMSP
+    ID: distributorMSP
+    MSPDir: crypto-config/peerOrganizations/distributor.pharma-network.com/msp
     Policies:
       Readers:
         Type: Signature
-        Rule: "OR('usersMSP.admin', 'usersMSP.peer', 'usersMSP.client')"
+        Rule: "OR('distributorMSP.admin', 'distributorMSP.peer', 'distributorMSP.client')"
       Writers:
         Type: Signature
-        Rule: "OR('usersMSP.admin', 'usersMSP.peer', 'usersMSP.client')"
+        Rule: "OR('distributorMSP.admin', 'distributorMSP.peer', 'distributorMSP.client')"
       Admins:
         Type: Signature
-        Rule: "OR('usersMSP.admin', 'usersMSP.peer', 'usersMSP.client')"
+        Rule: "OR('distributorMSP.admin', 'distributorMSP.peer', 'distributorMSP.client')"
     AnchorPeers:
-      - Host: peer0.users.property-registration-network.com
+      - Host: peer0.distributor.pharma-network.com
         Port: 9051
 
+   - &retailer
+    Name: retailerMSP
+    ID: retailerMSP
+    MSPDir: crypto-config/peerOrganizations/retailer.pharma-network.com/msp
+    Policies:
+      Readers:
+        Type: Signature
+        Rule: "OR('retailerMSP.admin', 'retailerMSP.peer', 'retailerMSP.client')"
+      Writers:
+        Type: Signature
+        Rule: "OR('retailerMSP.admin', 'retailerMSP.peer', 'retailerMSP.client')"
+      Admins:
+        Type: Signature
+        Rule: "OR('retailerMSP.admin', 'retailerMSP.peer', 'retailerMSP.client')"
+    AnchorPeers:
+      - Host: peer0.retailer.pharma-network.com
+        Port: 9051
 
+  - &consumer
+    Name: consumerMSP
+    ID: consumerMSP
+    MSPDir: crypto-config/peerOrganizations/consumer.pharma-network.com/msp
+    Policies:
+      Readers:
+        Type: Signature
+        Rule: "OR('consumerMSP.admin', 'consumerMSP.peer', 'consumerMSP.client')"
+      Writers:
+        Type: Signature
+        Rule: "OR('consumerMSP.admin', 'consumerMSP.peer', 'consumerMSP.client')"
+      Admins:
+        Type: Signature
+        Rule: "OR('consumerMSP.admin', 'consumerMSP.peer', 'consumerMSP.client')"
+    AnchorPeers:
+      - Host: peer0.consumer.pharma-network.com
+        Port: 9051
+
+  - &transporter
+    Name: transporterMSP
+    ID: transporterMSP
+    MSPDir: crypto-config/peerOrganizations/transporter.pharma-network.com/msp
+    Policies:
+      Readers:
+        Type: Signature
+        Rule: "OR('transporterMSP.admin', 'transporterMSP.peer', 'transporterMSP.client')"
+      Writers:
+        Type: Signature
+        Rule: "OR('transporterMSP.admin', 'transporterMSP.peer', 'transporterMSP.client')"
+      Admins:
+        Type: Signature
+        Rule: "OR('transporterMSP.admin', 'transporterMSP.peer', 'transporterMSP.client')"
+    AnchorPeers:
+      - Host: peer0.transporter.pharma-network.com
+        Port: 9051
 
 #Capabilities
 
@@ -88,7 +140,7 @@ Application: &ApplicationDefaults
 Orderer: &OrdererDefaults
   OrdererType: solo
   Addresses:
-    - orderer.property-registration-network.com:7050
+    - orderer.pharma-network.com:7050
   BatchTimeout: 2s
   BatchSize:
     MaxMessageCount: 10
@@ -145,15 +197,21 @@ Profiles:
     Consortiums:
       RegistrationConsortium:
         Organizations:
-          - *registrar
-          - *users
+        - *manufacturer
+        - *distributor
+        - *retailer
+        - *consumer
+        - *transporter
 
   RegistrationChannel:
-    Consortium: RegistrationConsortium
+    Consortium: PharmaConsortium
     Application:
       <<: *ApplicationDefaults
       Organizations:
-        - *users
-        - *registrar
+        - *manufacturer
+        - *distributor
+        - *retailer
+        - *consumer
+        - *transporter
       Capabilities:
         <<: *ApplicationCapabilities

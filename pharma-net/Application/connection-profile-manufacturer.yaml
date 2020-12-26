@@ -67,12 +67,12 @@ channels:
         chaincodeQuery: false
         ledgerQuery: true
         eventSource: false
-      peer0.seller.pharma-network.com:
+      peer0.transporter.pharma-network.com:
         endorsingPeer: false
         chaincodeQuery: false
         ledgerQuery: true
         eventSource: false
-      peer1.seller.pharma-network.com:
+      peer1.transporter.pharma-network.com:
         endorsingPeer: false
         chaincodeQuery: false
         ledgerQuery: true

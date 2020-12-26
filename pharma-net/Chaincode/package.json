@@ -11,8 +11,11 @@
     "lint": "eslint .",
     "pretest": "npm run lint",
     "test": "nyc mocha test --recursive",
-    "start-dev-registrar": "fabric-chaincode-node start --peer.address peer0.registrar.property-registration-network.com:7053 --chaincode-id-name regnet:1.1",
-    "start-dev-users": "fabric-chaincode-node start --peer.address peer0.users.property-registration-network.com:9053 --chaincode-id-name regnet:1.1",
+    "start-dev-manufacturer": "fabric-chaincode-node start --peer.address peer0.manufacturer.pharma-network.com:7053 --chaincode-id-name pharmanet:1.1",
+    "start-dev-distributor": "fabric-chaincode-node start --peer.address peer0.distributor.pharma-network.com:9053 --chaincode-id-name pharmanet:1.1",
+    "start-dev-retailer": "fabric-chaincode-node start --peer.address peer0.retailer.pharma-network.com:9053 --chaincode-id-name pharmanet:1.1",
+    "start-dev-consumer": "fabric-chaincode-node start --peer.address peer0.consumer.pharma-network.com:9053 --chaincode-id-name pharmanet:1.1",
+    "start-dev-transporter": "fabric-chaincode-node start --peer.address peer0.transporter.pharma-network.com:9053 --chaincode-id-name pharmanet:1.1",
     "start": "fabric-chaincode-node start",
     "mocha": "mocha test --recursive"
   },

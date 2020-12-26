@@ -1,12 +1,17 @@
 version: '2'
 
 volumes:
-  orderer.property-registration-network.com:
-  peer0.registrar.property-registration-network.com:
-  peer1.registrar.property-registration-network.com:
-  peer0.users.property-registration-network.com:
-  peer1.users.property-registration-network.com:
-  peer2.users.property-registration-network.com:
+  orderer.pharma-network.com:
+  peer0.manufacturer.pharma-network.com:
+  peer1.manufacturer.pharma-network.com:
+  peer0.distributor.pharma-network.com:
+  peer1.distributor.pharma-network.com:
+  peer0.retailer.pharma-network.com:
+  peer1.retailer.pharma-network.com:
+  peer0.consumer.pharma-network.com:
+  peer1.consumer.pharma-network.com:
+  peer0.transporter.pharma-network.com:
+  peer1.transporter.pharma-network.com:
 
 
 networks:
@@ -14,7 +19,7 @@ networks:
 
 services:
 
-  ca.registrar.property-registration-network.com:
+  ca.manufacturer.pharma-network.com:
     image: hyperledger/fabric-ca:latest
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
